@@ -1,7 +1,7 @@
 import unittest
 import pandas as pd
 
-from src.etl import transform_data
+from etl import transform_data
 
 
 class TestEtl(unittest.TestCase):

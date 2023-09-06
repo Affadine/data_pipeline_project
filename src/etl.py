@@ -1,7 +1,7 @@
 import json
 import pandas as pd
 
-from src.data_processing import read_drugs_csv, read_pubmed_csv, read_pubmed_json, read_clinical_trials_csv
+from data_processing import read_drugs_csv, read_pubmed_csv, read_pubmed_json, read_clinical_trials_csv
 
 
 def extract_data():

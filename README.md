@@ -15,8 +15,20 @@ The project is structured as follows:
 
 ## Installation
 1. Clone this repository to your local machine.
-2. Create a virtual environment (optional but recommended).
-3. Install the required dependencies:
+2. Create a virtual environment (optional but recommended):
+    ```bash
+   python -m venv venv
+   ```
+3. Activate the virtual environment:
+   ##### 3.1.  On Windows:
+    ```bash
+        venv\Scripts\activate
+    ```
+   ##### 3.2.  On macOS ou  Linux:
+    ```bash
+        source venv/bin/activate
+
+4. Install the required dependencies:
    ```bash
    pip install -r requirements.txt
 
@@ -33,4 +45,12 @@ You can customize the behavior of the data pipeline by modifying the configurati
 ## Unit Tests
 To run the unit tests, use the following command:
 ```bash
-   python -m unittest discover -s tests
+  python -m unittest discover -s tests
+```
+
+## Dockerization
+To run the project in a Docker, follow these steps:
+```bash
+  docker build -t data-pipeline .
+  docker run -v ${PWD}/data:/app/data -v ${PWD}/results:/app/results data-pipeline
+

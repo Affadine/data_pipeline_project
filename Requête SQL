@@ -1,0 +1,27 @@
+request 1:
+
+SELECT
+	t.date , sum(t.prod_price*t.prod_qty) as ventes
+FROM
+	"TRANSACTION" t
+WHERE
+	"date" <= '2020-12-31'AND "date" >= '2020-01-01'
+GROUP BY
+	t.date
+ORDER BY
+	t.date
+
+request 2:
+
+SELECT
+    t.client_id,
+    SUM(CASE WHEN p.product_type = 'MEUBLE' THEN t.prod_price * t.prod_qty ELSE 0 END) AS ventes_meuble,
+    SUM(CASE WHEN p.product_type = 'DECO' THEN t.prod_price * t.prod_qty ELSE 0 END) AS ventes_deco
+FROM
+    "TRANSACTION" t
+JOIN
+    "PRODUCT_NOMENCLATURE" p ON t.prod_id = p.product_id
+WHERE
+    t.date >= '2020-01-01' AND t.date <= '2020-12-31'
+GROUP BY
+    t.client_id;
