@@ -38,13 +38,13 @@ def main():
         # Chargement des données transformées dans un fichier JSON
         load_data(transformed_data, "results/graph_data.json")
 
-        print("Pipeline de données terminée avec succès.")
+        print("Data pipeline successfully completed.")
 
         # journal mentionnant le plus de medicaments  différents
         journal_with_most_unique_drugs_mentions("results/graph_data.json")
 
     except Exception as e:
-        print(f"Une erreur s'est produite : {str(e)}")
+        print(f"An error has occurred : {str(e)}")
 
 
 if __name__ == "__main__":

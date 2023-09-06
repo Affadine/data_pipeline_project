@@ -1,17 +1,17 @@
-# Image Python
+# Python image
 FROM python:3.11
 
-# Répertoire de travail dans le conteneur
+# Working directory in the container
 WORKDIR /app
 
-# Copie des fichiers du projet dans le conteneur
+# Copy project files to container
 COPY . /app
 
 RUN pip install virtualenv
 RUN virtualenv venv
 RUN . venv/bin/activate
-# Installation les dépendances du projet
+# Installation of project dependencies
 RUN pip install -r requirements.txt
 
-# Exécutez l'application lorsque le conteneur démarre
+# Run the application when the container starts up
 CMD ["python", "src/main.py"]

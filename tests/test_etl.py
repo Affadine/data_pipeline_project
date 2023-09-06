@@ -24,11 +24,11 @@ class TestEtl(unittest.TestCase):
 
         result = transform_data(drugs_df, pubmed_df, clinical_trials_df)
 
-        # Vérifie que le résultat a la structure attendue
+        # Checks that the result has the expected structure
         self.assertIn("drugs", result)
         self.assertIsInstance(result["drugs"], list)
 
-        # Vérifie que les médicaments et leurs mentions sont corrects
+        # Checks that drugs and their indications are correct
         drug_a_info = next(drug for drug in result["drugs"] if drug["name"] == "DrugA")
         self.assertEqual(drug_a_info["name"], "DrugA")
         self.assertEqual(len(drug_a_info["mentions"]), 2)  # DrugA mentioned in two publications
