@@ -53,4 +53,44 @@ To run the project in a Docker, follow these steps:
 ```bash
   docker build -t data-pipeline .
   docker run -v ${PWD}/data:/app/data -v ${PWD}/results:/app/results data-pipeline
+```
 
+## Industrialization with Airflow on Google Cloud Platform (GCP)
+
+### 1. Create a GCP project
+If you don't already have one, create a GCP project from the GCP Console.
+### 2. Set up Google Cloud Composer
+On GCP, you can use Cloud Composer, a managed service that supports Apache Airflow. Create a Cloud Composer environment by following [the official GCP documentation](https://cloud.google.com/composer/docs?hl=fr) for configuring and managing Airflow.
+### 3. Deploy the pipeline in Airflow
+Transfer the file containing the data pipeline to the DAGS folder (containing all dags)
+
+## CI/CD Pipeline
+
+
+Setting up a CI/CD (Continuous Integration/Continuous Deployment) chain automates the development, testing and deployment process, improving quality and speed of delivery. Here's how you could set up a CI/CD chain for your project:
+
+### 1. Configuration de Google Cloud Build
+
+Create a cloudbuild.yaml configuration file detailing the CI/CD pipeline steps. Cloud Build will automatically run tests whenever a code change is detected.
+
+```
+steps:
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['clone', 'https://github.com/Affadine/data_pipeline_project']
+
+  - name: 'python:3.11'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        pip install -r requirements.txt
+        python -m unittest discover -s tests -p '*_test.py'
+
+
+```
+
+### 2. Automatic deployment
+Once your tests have passed, you can configure Cloud Build , Gitlab, etc. to automatically deploy your application.
+
+### 3. Notifications and alerts
+Set up notifications and alerts to be informed in the event of CI/CD chain failure.
