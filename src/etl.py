@@ -53,45 +53,44 @@ def transform_data(drugs_df, pubmed_df, clinical_trials_df):
 
         # Add mentions in PubMed publications
         if drug_name in pubmed_drugs_mentions:
+            publication_info = {
+                "source": "PubMed",
+                "publications": []
+            }
             for _, pubmed_row in pubmed_df.iterrows():
                 title = pubmed_row['title']
                 journal = pubmed_row['journal']
                 if drug_name.lower() in title.lower():
-                    publication_info = {
-                        "source": "PubMed",
-                        "publications": [
-                            {
-                                "title": title,
-                                "date": pubmed_row['date']
-                            }
-                        ]
-                    }
-                    drug_info["mentions"].append(publication_info)
+                    publication_info["publications"] .append({
+                        "title": title,
+                        "date": pubmed_row['date']
+                    })
                     drug_info["mentioned_by_journals"].append({
                         "journal_name": journal,
                         "date": pubmed_row['date']
                     })
+            drug_info["mentions"].append(publication_info)
+
 
         # Add mentions in clinical trials
         if drug_name in clinical_trials_drugs_mentions:
+            publication_info = {
+                "source": "Essai_clinique",
+                "publications": []
+            }
             for _, clinical_trial_row in clinical_trials_df.iterrows():
                 title = clinical_trial_row['scientific_title']
                 journal = clinical_trial_row['journal']
                 if drug_name.lower() in title.lower():
-                    publication_info = {
-                        "source": "Essai_clinique",
-                        "publications": [
-                            {
-                                "title": title,
-                                "date": clinical_trial_row['date']
-                            }
-                        ]
-                    }
-                    drug_info["mentions"].append(publication_info)
+                    publication_info["publications"].append({
+                        "title": title,
+                        "date": clinical_trial_row['date']
+                    })
                     drug_info["mentioned_by_journals"].append({
                         "journal_name": journal,
                         "date": clinical_trial_row['date']
                     })
+            drug_info["mentions"].append(publication_info)
 
         drug_graph["drugs"].append(drug_info)
     return drug_graph
